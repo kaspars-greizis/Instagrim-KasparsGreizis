@@ -4,7 +4,6 @@
     Author     : Administrator
 --%>
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
@@ -16,13 +15,12 @@
     </head>
     <body>
         <header>
-            <h1>InstaGrim ! </h1>
+            <h1><a href="/Instagrim">Insta Grim</a> </h1>
             <h2>Your world in Black and White</h2>
         </header>
         <nav>
-            <ul>
-
-               
+            <ul class="nav">
+                <li><a href="/Instagrim">Home</a></li>
                 <li><a href="upload.jsp">Upload</a></li>
                     <%
                         
@@ -33,20 +31,30 @@
                     %>
 
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="Instagrim/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
+                
                     <%}
                             }else{
                                 %>
-                 <li><a href="register.jsp">Register</a></li>
                 <li><a href="login.jsp">Login</a></li>
-                <%
-                                        
-                            
-                    }%>
+                <li><a href="register.jsp">Register</a></li>                
+                <% 
+                        }%>
             </ul>
         </nav>
+            
+                
+                
         <footer>
             <ul>
                 <li class="footer"><a href="/Instagrim">Home</a></li>
+                <% 
+                        /*if (lg != null) {
+                            if (lg.getlogedin()) {
+                              //session.invalidate();
+                              }else{}*/%>
+                <a href="/Instagrim">Log out</a>
+                                
                 <li>&COPY; Andy C</li>
             </ul>
         </footer>

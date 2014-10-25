@@ -18,5 +18,6 @@
             Pic ps = new Pic();
             LoggedIn lg = new LoggedIn();
             %>
+    <li><a href="/Instagrim<% request.getRemoteUser();session.invalidate(); %>">Log out</a></li>
     </body>
 </html>

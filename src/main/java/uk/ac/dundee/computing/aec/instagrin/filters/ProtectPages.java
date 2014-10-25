@@ -150,7 +150,8 @@ public class ProtectPages implements Filter {
     }
 
     /**
-     * Return the filter configuration object for this filter.
+     * Return the filter conf
+     * @return configuration object for this filter.
      */
     public FilterConfig getFilterConfig() {
         return (this.filterConfig);
