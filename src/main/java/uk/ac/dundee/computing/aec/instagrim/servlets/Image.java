@@ -38,8 +38,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
     "/Images",
     "/Images/*"
 })
-@MultipartConfig
 
+@MultipartConfig
 public class Image extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
