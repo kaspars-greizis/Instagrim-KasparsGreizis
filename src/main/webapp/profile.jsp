@@ -41,7 +41,8 @@
                 <%
                     Profile p = new Profile();
                     //String FirstName = (String)session.getAttribute("FirstName");
-                    String test = (String)request.getAttribute("test");%>
+                    String test = (String)session.getAttribute("login");
+                    System.out.println(test+"////////////////////////////////////////////////////");%>
                     Name:<%=test%> </br> 
                     Test:<%=test%> </br> <%
                     //FirstName = request.getAttributes("FirstName");

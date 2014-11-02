@@ -15,7 +15,7 @@
     </head>
     <body>
         <header>
-            <h1><a href="/Instagrim">Insta Grim</a> </h1>
+            <h1><a href="/Instagrim">InstaGrim</a> </h1>
             <h2>Your world in Black and White</h2>
         </header>
         <nav>
@@ -31,7 +31,7 @@
                     %>
 
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="profile.jsp">Your Profile</a></li>
+                <li><a href="/Instagrim/profile">Your Profile</a></li>
                 
                     <%}
                             }else{
@@ -53,7 +53,7 @@
                             if (lg.getlogedin()) {
                               //session.invalidate();
                               }else{}*/%>
-                <a href="/Instagrim">Log out</a>
+                <!--<a href="/Instagrim">Log out</a>-->
                                 
                 <li>&COPY; Andy C</li>
             </ul>
