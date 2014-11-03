@@ -248,23 +248,23 @@ public class Profile extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    //@Override
+    //protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            //throws ServletException, IOException {
         //processRequest(request, response);
-    }
+    //}
 
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    //@Override
+    //public String getServletInfo() {
+        //return "Short description";
+    //}// </editor-fold>
 
-}
+//}
 //processRequest(request, response);
         //response.setContentType("text/html");
         //HttpSession session = request.getSession();
@@ -280,3 +280,4 @@ public class Profile extends HttpServlet {
         //RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
         //request.getSession().setAttribute("login", login);
         //rd.forward(request, response);
+    
