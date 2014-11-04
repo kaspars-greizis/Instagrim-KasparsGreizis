@@ -53,38 +53,40 @@ public class Profile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        //setUser(request,response);
+        UserProfile p = new UserProfile();
+        /////New
+        String value="";
         System.out.println("test");
         RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
-        String value = "othervariable";
         HttpSession session=request.getSession();
-        session.setAttribute("login", value);        
-        rd.forward(request, response);
-        //testMethod(request,response);
-        //processRequest(request,response);
-        
-        //Session session = cluster.connect("instagrim");
-        //String args[] = Convertors.SplitRequestPath(request);
-        /*try {
-            
-            //getFirstName(login,request,response);
-        } catch (ServletException | IOException et) {
-        }
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                if (lg != null) {
-                    UserName = lg.getUsername();
-                    if (lg.getlogedin()) {
-                        UserProfile p = new UserProfile();
-                        setUser(p,request,response);
-                        displayProfile(p,request,response);
-                    }
-                    else{
-                        //return;
-                    }
-                }*/
-            }
+                        if (lg != null) {  
+                            if (lg.getlogedin()) {
+                                UserName = lg.getUsername();
+                                value = "success";
+                                session.setAttribute("login", value);
+                                //p = (UserProfile) SetProfile(request,response);
+                            }else{
+                                value="fail: could not log in";
+                                session.setAttribute("login", value);
+                            }
+                        }else{
+                            value="fail: lg=null";
+                            session.setAttribute("login", value);
+                        }
+                        
+        
+        ///Original down from here
+        //setUser(p,request,response);
+        //System.out.println("test");
+        //RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
+        //String value = "othervariable";
+        //HttpSession session=request.getSession();
+        //session.setAttribute("login", value);
+        //session.setAttribute("first_name", first_name);
+        rd.forward(request, response);
+    }
+    
     private void testMethod(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
         request.setAttribute("test","test1");
@@ -92,41 +94,54 @@ public class Profile extends HttpServlet {
         rd.forward(request, response);
     }
         
-    private void setUser(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+//    
+
+    private UserProfile SetProfile(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         //HttpSession session = request.getSession();
         //String first_name=HttpSession.getAttribute(login);
-        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-            if (lg != null) {
-                UserName = lg.getUsername();
-                if (lg.getlogedin()) {
-                    Session session = cluster.connect("instagrim");
-                    ResultSet rs = null;        
-                    PreparedStatement ps = session.prepare("select first_name, last_name from userprofiles where login ="+UserName);
-                    BoundStatement boundStatement = new BoundStatement(ps);
-                    rs = session.execute( boundStatement.bind(UserName) );
-                    if (rs.isExhausted()){
-                        System.out.println("No First Name returned");
-                        //return "No First Name found";
-                    }else{
-                        for (Row row : rs){
-                            first_name = row.getString("first_name");
-                            last_name = row.getString("last_name");
-                            //username = UserName;
-                            }
-                    }
-                    session.close();
-                    UserProfile p = new UserProfile();
-                    p.setUser(UserName, first_name, last_name);        
-                    //return first_name;
-                }
-                else{}
-            }
-        
+        UserProfile p = new UserProfile();
+        Session csession = cluster.connect("instagrim");
+        ResultSet rs = null;        
+        PreparedStatement ps = csession.prepare("select login, first_name, last_name from userprofiles where login ='"+UserName+"'"); //just a test, change user
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = csession.execute( 
+                boundStatement.bind(UserName) );
+        if (rs.isExhausted()){
+            System.out.println("No First Name returned");           
+            
+        }else{
+        for (Row row : rs){
+                first_name = row.getString("first_name");
+                last_name = row.getString("last_name");
+                //username = UserName;
+            }           
+        }
+        p.setUser(UserName, first_name, last_name);
+        //return first_name;
         RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");        
         rd.forward(request, response);
-        }
+        csession.close();        
+        return p;
     }
-//    private void setUser(UserProfile p,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+
+    
+                
+        
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+//private void setUser(String username,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
 //        //HttpSession session = request.getSession();
 //        //String first_name=HttpSession.getAttribute(login);
 //        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -135,11 +150,12 @@ public class Profile extends HttpServlet {
 //                if (lg.getlogedin()) {
 //                   Session session = cluster.connect("instagrim");
 //                    ResultSet rs = null;        
-//                    PreparedStatement ps = session.prepare("select login, first_name, last_name from userprofiles where login ="+UserName);
+//                    PreparedStatement ps = session.prepare("select login, first_name, last_name from userprofiles where login ="+username); //just a test, change user
 //                    BoundStatement boundStatement = new BoundStatement(ps);
 //                    rs = session.execute( boundStatement.bind(UserName) );
 //                    if (rs.isExhausted()){
 //                        System.out.println("No First Name returned");
+//                        
 //                        for (Row row : rs){
 //                            first_name = row.getString("first_name");
 //                            last_name = row.getString("last_name");
@@ -158,7 +174,7 @@ public class Profile extends HttpServlet {
 //        RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");        
 //        rd.forward(request, response);
 //        
-//    }
+//    }}
     
 //    private void displayProfile(UserProfile p, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        //PicModel tm = new PicModel();

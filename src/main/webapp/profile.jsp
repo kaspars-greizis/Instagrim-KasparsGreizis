@@ -36,13 +36,13 @@
             </ul>
         </nav>
         <article>
-            <p>User: ${test} </br>Value:&nbsp;
-                <%=UserName%>&nbsp; 
+            <p>Value:&nbsp;
+                <%=UserName%>&nbsp;</br> 
                 <%
-                    Profile p = new Profile();
+                    //Profile p = new Profile();
                     //String FirstName = (String)session.getAttribute("FirstName");
                     String test = (String)session.getAttribute("login");
-                    System.out.println(test+"////////////////////////////////////////////////////");%>
+                    //System.out.println(test+"////////////////////////////////////////////////////");%>
                     Name:<%=test%> </br> 
                     Test:<%=test%> </br> <%
                     //FirstName = request.getAttributes("FirstName");
@@ -55,13 +55,14 @@
                     //String user = request.getRemoteUser();
                     //out.print( request.getRemoteUser());}                    
                     //String login=(String)request.getAttribute("login");
-                    String error=("No result,");
-                    String login=(String)request.getAttribute("login");
+                    //String error=("No result,");
+                    String login=(String)session.getAttribute("login");
+                    String first_name=(String)session.getAttribute("first_name");
                     %>Result: <%
-                    if(login!=null){%>
-                    <%=login%><%                
+                    if(first_name!=null){%>
+                    <%=first_name%><%                
                     }else{%>
-                    <%=error+" you should sit in the corner and cry now "%>
+                    <%//=error+"why is this here?"%>
                     <%}}%>
             </p>
 
