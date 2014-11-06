@@ -38,8 +38,9 @@ public class Profile extends HttpServlet {
     private Cluster cluster;
     private HttpSession session;
     private String UserName="";
-    private String first_name="";
-    private String last_name="";
+    private String first_name="null";
+    private String last_name="null";
+    UserProfile p;
     
     public Profile(){
         super();
@@ -53,9 +54,9 @@ public class Profile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserProfile p = new UserProfile();
+        //UserProfile p = new UserProfile();
         /////New
-        String value="";
+        String value;
         System.out.println("test");
         RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
         HttpSession session=request.getSession();
@@ -65,7 +66,9 @@ public class Profile extends HttpServlet {
                                 UserName = lg.getUsername();
                                 value = "success";
                                 session.setAttribute("login", value);
-                                //p = (UserProfile) SetProfile(request,response);
+                                //session.setAttribute("username", p.getFirstName());
+                                //System.out.println(p.getFirstName());
+                                SetProfile(request,response);
                             }else{
                                 value="fail: could not log in";
                                 session.setAttribute("login", value);
@@ -96,16 +99,16 @@ public class Profile extends HttpServlet {
         
 //    
 
-    private UserProfile SetProfile(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
-        //HttpSession session = request.getSession();
+    private void SetProfile(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+        HttpSession session = request.getSession();
         //String first_name=HttpSession.getAttribute(login);
-        UserProfile p = new UserProfile();
+        //UserProfile p = new UserProfile();
         Session csession = cluster.connect("instagrim");
         ResultSet rs = null;        
-        PreparedStatement ps = csession.prepare("select login, first_name, last_name from userprofiles where login ='"+UserName+"'"); //just a test, change user
+        PreparedStatement ps = csession.prepare("select login, first_name, last_name from userprofiles where login='"+UserName+"'"); //just a test, change user
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = csession.execute( 
-                boundStatement.bind(UserName) );
+                boundStatement.bind() );
         if (rs.isExhausted()){
             System.out.println("No First Name returned");           
             
@@ -113,15 +116,20 @@ public class Profile extends HttpServlet {
         for (Row row : rs){
                 first_name = row.getString("first_name");
                 last_name = row.getString("last_name");
+                session.setAttribute("first_name", first_name);
+                System.out.println(first_name);                
+                session.setAttribute("last_name", last_name);
+                System.out.println(last_name);
                 //username = UserName;
-            }           
+            }
+                
         }
-        p.setUser(UserName, first_name, last_name);
+        //p.setUser(UserName, first_name, last_name);
         //return first_name;
         RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");        
         rd.forward(request, response);
         csession.close();        
-        return p;
+        //jnjreturn p;
     }
 
     

@@ -57,7 +57,7 @@
                     //String login=(String)request.getAttribute("login");
                     //String error=("No result,");
                     String login=(String)session.getAttribute("login");
-                    String first_name=(String)session.getAttribute("first_name");
+                    String first_name=(String)session.getAttribute("last_name");
                     %>Result: <%
                     if(first_name!=null){%>
                     <%=first_name%><%                
