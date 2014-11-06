@@ -76,9 +76,7 @@ public class Profile extends HttpServlet {
                         }else{
                             value="fail: lg=null";
                             session.setAttribute("login", value);
-                        }
-                        
-        
+                        }        
         ///Original down from here
         //setUser(p,request,response);
         //System.out.println("test");
@@ -116,13 +114,16 @@ public class Profile extends HttpServlet {
         for (Row row : rs){
                 first_name = row.getString("first_name");
                 last_name = row.getString("last_name");
-                session.setAttribute("first_name", first_name);
-                System.out.println(first_name);                
-                session.setAttribute("last_name", last_name);
-                System.out.println(last_name);
+//                session.setAttribute("first_name", first_name);
+//                System.out.println(first_name);                
+//                session.setAttribute("last_name", last_name);
+//                System.out.println(last_name);
                 //username = UserName;
             }
-                
+                session.setAttribute("first_name", first_name);
+                System.out.println(first_name);  
+                session.setAttribute("last_name", last_name);
+                System.out.println(last_name);
         }
         //p.setUser(UserName, first_name, last_name);
         //return first_name;

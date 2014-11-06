@@ -27,7 +27,7 @@ public class User {
         
     }
     
-    public boolean RegisterUser(String username, String Password, String first_name, String last_name){ //added first and last name fields
+    public boolean RegisterUser(String username, String Password, String first_name, String last_name, String email){ //added first and last name fields
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
         try {

@@ -25,8 +25,9 @@
             <ul class="nav">
                 <li><a href="/Instagrim">Home</a></li>
                 <li class="nav"><a href="/Instagrim/upload.jsp">Upload</a></li>
-                <li><a href="profile.jsp">Your Profile</a></li>
+                <li class="nav"><a href="/Instagrim/profile">Your Profile</a></li>
                 <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <li class="nav"><a href="/Instagrim/Logout">Log out</a></li>
                 
             </ul>
         </nav>

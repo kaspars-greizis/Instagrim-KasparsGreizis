@@ -4,6 +4,7 @@
     Author     : Administrator
 --%>
 
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,24 @@
             <ul class="nav">
                 <li><a href="/Instagrim">Home</a></li>
                 <li><a href="upload.jsp">Upload</a></li>
+                <%
+                        
+                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                        if (lg != null) {
+                            String UserName = lg.getUsername();
+                            if (lg.getlogedin()) {
+                    %>
+
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/Instagrim/profile">Your Profile</a></li>
+                <li><a href="/Instagrim/Logout">Log out</a></li>
                 <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <%}}else{%>
+                <li><a href="login.jsp">Login</a></li>
+                <li><a href="register.jsp">Register</a></li>
+                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <%}%>
+                
                 
             </ul>
         </nav>

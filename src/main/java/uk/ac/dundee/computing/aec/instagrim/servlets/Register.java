@@ -49,11 +49,11 @@ public class Register extends HttpServlet {
         String password=request.getParameter("password");
         String first_name=request.getParameter("first_name");
         String last_name=request.getParameter("last_name");
-        //String email=request.getParameter("email");
+        String email=request.getParameter("email");
         
         User us=new User();
         us.setCluster(cluster);
-        us.RegisterUser(username, password, first_name, last_name);
+        us.RegisterUser(username, password, first_name, last_name, email);
         
 	response.sendRedirect("/Instagrim");
         

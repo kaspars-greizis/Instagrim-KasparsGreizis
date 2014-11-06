@@ -28,40 +28,30 @@
                     LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                     if (lg != null) {
                         String UserName = lg.getUsername();
-                        if (lg.getlogedin()) {
-                            //Profile p = new Profile;%>
+                        if (lg.getlogedin()) {%>
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
                 <%}else{}%>
                 <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <li class="nav"><a href="/Instagrim/Logout">Log out</a></li>
             </ul>
         </nav>
         <article>
             <p>Value:&nbsp;
                 <%=UserName%>&nbsp;</br> 
                 <%
-                    //Profile p = new Profile();
-                    //String FirstName = (String)session.getAttribute("FirstName");
-                    String test = (String)session.getAttribute("login");
-                    //System.out.println(test+"////////////////////////////////////////////////////");%>
-                    Name:<%=test%> </br> 
-                    Test:<%=test%> </br> <%
-                    //FirstName = request.getAttributes("FirstName");
-                    //Profile p = new Profile()//=p.getSUUID();
-                    //HttpSession session = request.getSession();
-                    //out.write((String) session.getAttribute("login"));                
-                    //out.write(request.getAttribute("login").toString());
-                    //String login=("string");
-                    //out.write("lolol");
-                    //String user = request.getRemoteUser();
-                    //out.print( request.getRemoteUser());}                    
+                    String first_name = (String)session.getAttribute("first_name");
+                    String last_name=(String)session.getAttribute("last_name");%>
+                    
+                    First Name: <%=first_name%> </br> 
+                    Last Name: <%=last_name%> </br> <%
                     //String login=(String)request.getAttribute("login");
                     //String error=("No result,");
-                    String login=(String)session.getAttribute("login");
-                    String first_name=(String)session.getAttribute("last_name");
-                    %>Result: <%
+                    String login=(String)session.getAttribute("login");%>
+                    Result: 
+                    <%
                     if(first_name!=null){%>
-                    <%=first_name%><%                
-                    }else{%>
+                    <%=first_name%>
+                    <%}else{%>
                     <%//=error+"why is this here?"%>
                     <%}}%>
             </p>
