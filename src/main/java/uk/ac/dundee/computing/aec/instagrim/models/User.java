@@ -27,8 +27,9 @@ public class User {
         
     }
     
-    public boolean RegisterUser(String username, String Password, String first_name, String last_name, String email){ //added first and last name fields
+    public boolean RegisterUser(String username, String Password, String first_name, String last_name){ //added first and last name fields
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
+        //String email_tmp = email;
         String EncodedPassword=null;
         try {
             EncodedPassword= sha1handler.SHA1(Password);
@@ -36,7 +37,7 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("instagrimKG");
         PreparedStatement ps = session.prepare("insert into userprofiles (login,password,first_name,last_name) Values(?,?,?,?)");
        
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -57,7 +58,7 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("instagrimKG");
         PreparedStatement ps = session.prepare("select password from userprofiles where login =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
