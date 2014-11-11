@@ -27,7 +27,7 @@ public class User {
         
     }
     
-    public boolean RegisterUser(String username, String Password, String first_name, String last_name){ //added first and last name fields
+    public boolean RegisterUser(String username, String Password, String first_name, String last_name, String email){ //added first and last name fields
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         //String email_tmp = email;
         String EncodedPassword=null;
@@ -38,12 +38,12 @@ public class User {
             return false;
         }
         Session session = cluster.connect("instagrimKG");
-        PreparedStatement ps = session.prepare("insert into userprofiles (login,password,first_name,last_name) Values(?,?,?,?)");
+        PreparedStatement ps = session.prepare("insert into userprofiles (login,password,first_name,last_name,email) Values(?,?,?,?,?)");
        
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username,EncodedPassword, first_name, last_name));
+                        username,EncodedPassword, first_name, last_name, email));
         //We are assuming this always works.  Also a transaction would be good here !
         
         return true;

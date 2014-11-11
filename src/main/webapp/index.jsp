@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : Sep 28, 2014, 7:01:44 PM
-    Author     : Administrator
+    Author     : Kaspars Greizis
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

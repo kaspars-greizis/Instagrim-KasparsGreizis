@@ -36,24 +36,22 @@
             </ul>
         </nav>
         <article>
-            <p>Value:&nbsp;
+            <h1>Your Profile</h1>
+            <p>Username:&nbsp;
                 <%=UserName%>&nbsp;</br> 
                 <%
                     String first_name = (String)session.getAttribute("first_name");
-                    String last_name=(String)session.getAttribute("last_name");%>
+                    String last_name=(String)session.getAttribute("last_name");
+                    String email=(String)session.getAttribute("email");%>
                     
                     First Name: <%=first_name%> </br> 
-                    Last Name: <%=last_name%> </br> <%
+                    Last Name: <%=last_name%> </br> 
+                    Email: <%=email%><%
                     //String login=(String)request.getAttribute("login");
                     //String error=("No result,");
                     String login=(String)session.getAttribute("login");%>
-                    Result: 
-                    <%
-                    if(first_name!=null){%>
-                    <%=first_name%>
-                    <%}else{%>
-                    <%//=error+"why is this here?"%>
-                    <%}}%>
+                    
+                    <%}%>
             </p>
 
         </article>

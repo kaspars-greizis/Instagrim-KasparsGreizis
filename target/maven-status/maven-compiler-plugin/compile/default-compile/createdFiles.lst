@@ -1,4 +1,5 @@
 uk\ac\dundee\computing\aec\instagrim\lib\Convertors.class
+uk\ac\dundee\computing\aec\instagrim\servlets\Logout.class
 uk\ac\dundee\computing\aec\instagrim\stores\Pic.class
 uk\ac\dundee\computing\aec\instagrim\servlets\Login.class
 uk\ac\dundee\computing\aec\instagrim\servlets\Register.class

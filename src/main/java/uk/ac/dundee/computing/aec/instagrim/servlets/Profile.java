@@ -36,6 +36,7 @@ public class Profile extends HttpServlet {
     private String UserName="";
     private String first_name="null";
     private String last_name="null";
+    private String email="null";
     private UserProfile p;
     
     public Profile(){
@@ -89,7 +90,7 @@ public class Profile extends HttpServlet {
         //String first_name=HttpSession.getAttribute(login);
         Session csession = cluster.connect("instagrimKG");
         ResultSet rs = null;        
-        PreparedStatement ps = csession.prepare("select login, first_name, last_name from userprofiles where login='"+UserName+"'"); //just a test, change user
+        PreparedStatement ps = csession.prepare("select login, first_name, last_name, email from userprofiles where login='"+UserName+"'"); //just a test, change user
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = csession.execute( 
                 boundStatement.bind() );
@@ -100,11 +101,14 @@ public class Profile extends HttpServlet {
         for (Row row : rs){
                 first_name = row.getString("first_name");
                 last_name = row.getString("last_name");
+                email = row.getString("email");
             }
                 session.setAttribute("first_name", first_name);
                 System.out.println(first_name);  
                 session.setAttribute("last_name", last_name);
                 System.out.println(last_name);
+                session.setAttribute("email", email);
+                System.out.println(email);
         }
         //p.setUser(UserName, first_name, last_name);
         RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");        
