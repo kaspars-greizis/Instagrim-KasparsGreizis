@@ -54,6 +54,10 @@ public class Profile extends HttpServlet {
         //UserProfile p = new UserProfile();
         /////New
         String value;
+        UserName="null";
+        first_name="null";
+        last_name="null";
+        email="null";
         System.out.println("test");
         RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
         HttpSession session=request.getSession();
@@ -88,6 +92,7 @@ public class Profile extends HttpServlet {
     private void SetProfile(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         HttpSession session = request.getSession();
         //String first_name=HttpSession.getAttribute(login);
+        
         Session csession = cluster.connect("instagrimKG");
         ResultSet rs = null;        
         PreparedStatement ps = csession.prepare("select login, first_name, last_name, email from userprofiles where login='"+UserName+"'"); //just a test, change user
