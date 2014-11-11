@@ -25,8 +25,9 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 
 /**
- *
- * @author TheFractal
+ * This servlet handles current profile handling - querying the database and setting 
+ * session variables
+ * @author Kaspars Greizis
  */
 @WebServlet(name="Profile", urlPatterns = {"/profile"})
 //@WebServlet
@@ -42,17 +43,14 @@ public class Profile extends HttpServlet {
     public Profile(){
         super();
     }
+    
     public void init(ServletConfig config) throws ServletException {
-        // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
-        
     }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //UserProfile p = new UserProfile();
-        /////New
         String value;
         UserName="null";
         first_name="null";
@@ -62,37 +60,29 @@ public class Profile extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
         HttpSession session=request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                        if (lg != null) {  
-                            if (lg.getlogedin()) {
-                                UserName = lg.getUsername();
-                                value = "success";
-                                //session.setAttribute("login", value);
-                                //session.setAttribute("username", p.getFirstName());
-                                System.out.println(value);
-                                SetProfile(request,response);
-                            }else{
-                                value="fail: could not log in";
-                                session.setAttribute("login", value);
-                                System.out.println(value);
-                            }
-                        }else{
-                            value="fail: lg=null";
-                            session.setAttribute("login", value);
-                            System.out.println(value);
-                        }        
-        ///Original down from here
-        
-        //rd.forward(request, response);
+        if (lg != null) {  
+            if (lg.getlogedin()) {
+                UserName = lg.getUsername();
+                SetProfile(request,response);
+                value = "success";
+                System.out.println(value);                
+            }else{
+                value="fail: could not log in";
+                session.setAttribute("login", value);
+                System.out.println(value);
+            }
+        }else{
+            value="fail: lg=null";
+            session.setAttribute("login", value);
+            System.out.println(value);
+        }
     }
     
-
-        
-//    
-
+    /**
+     * Queries the database and sets current user data in session variables
+    */
     private void SetProfile(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         HttpSession session = request.getSession();
-        //String first_name=HttpSession.getAttribute(login);
-        
         Session csession = cluster.connect("instagrimKG");
         ResultSet rs = null;        
         PreparedStatement ps = csession.prepare("select login, first_name, last_name, email from userprofiles where login='"+UserName+"'"); //just a test, change user
@@ -100,8 +90,7 @@ public class Profile extends HttpServlet {
         rs = csession.execute( 
                 boundStatement.bind() );
         if (rs.isExhausted()){
-            System.out.println("No First Name returned");           
-            
+            System.out.println("No First Name returned");            
         }else{
         for (Row row : rs){
                 first_name = row.getString("first_name");
@@ -115,11 +104,9 @@ public class Profile extends HttpServlet {
                 session.setAttribute("email", email);
                 System.out.println(email);
         }
-        //p.setUser(UserName, first_name, last_name);
         RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");        
         rd.forward(request, response);
-        csession.close();        
-        //return p;
+        csession.close();
     }
 }
 
